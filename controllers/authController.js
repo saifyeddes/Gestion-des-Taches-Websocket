@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   try {
+    console.log("Requête reçue avec body :", req.body);
     const { name, email, password } = req.body;
 
     // Vérifie si l'utilisateur existe déjà

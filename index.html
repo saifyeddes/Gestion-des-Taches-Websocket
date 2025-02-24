@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test WebSocket</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Test WebSocket avec Socket.io</h1>
+    <button onclick="sendTask()">Ajouter une tâche</button>
+    <button onclick="updateTask()">Modifier une tâche</button>
+    <button onclick="deleteTask()">Supprimer une tâche</button>
+
+    <script>
+        const socket = io("http://localhost:5000");
+
+        socket.on("connect", () => {
+            console.log("🟢 Connecté au WebSocket !");
+        });
+
+        socket.on("disconnect", () => {
+            console.log("🔴 Déconnecté du WebSocket !");
+        });
+
+        socket.on("task:added", (task) => {
+            console.log("✅ Nouvelle tâche reçue :", task);
+        });
+
+        socket.on("task:updated", (task) => {
+            console.log("✏️ Tâche mise à jour :", task);
+        });
+
+        socket.on("task:deleted", (taskId) => {
+            console.log("🗑️ Tâche supprimée :", taskId);
+        });
+
+        function sendTask() {
+            const task = { id: Date.now(), title: "Nouvelle tâche" };
+            socket.emit("task:add", task);
+            console.log("📤 Tâche envoyée :", task);
+        }
+
+        function updateTask() {
+            const task = { id: 1, title: "Tâche mise à jour" };
+            socket.emit("task:update", task);
+            console.log("📤 Tâche mise à jour envoyée :", task);
+        }
+
+        function deleteTask() {
+            const taskId = 1;
+            socket.emit("task:delete", taskId);
+            console.log("📤 Suppression de la tâche :", taskId);
+        }
+    </script>
+</body>
+</html>
