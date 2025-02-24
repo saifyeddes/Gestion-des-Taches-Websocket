@@ -9,21 +9,35 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.7.9",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2"
+=======
+    "next": "15.1.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+>>>>>>> 8fe88743459ace208a20a4e35311865561924703
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+<<<<<<< HEAD
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+=======
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.7",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+>>>>>>> 8fe88743459ace208a20a4e35311865561924703
     "typescript": "^5"
   }
 }
