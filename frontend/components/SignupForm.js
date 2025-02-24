@@ -6,16 +6,17 @@ export default function SignupForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post("/auth/signup", { name, email, password });
       setMessage(res.data.msg); // Message de succès ou d'erreur
     } catch (error) {
+      console.error(error); // Afficher l'erreur pour plus de détails
       setMessage(error.response?.data?.msg || "Erreur lors de l'inscription");
     }
   };
+  
 
   return (
     <div>
