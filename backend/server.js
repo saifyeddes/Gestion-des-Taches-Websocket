@@ -15,6 +15,9 @@ mongoose
   })
   .then(() => console.log("✅ MongoDB Connecté"))
   .catch((err) => console.log(err));
+  app.get("/", (req, res) => {
+    res.send("Serveur en ligne !");
+  });
 
 app.use("/api/auth/signup", require("./routes/auth/signup"));
 app.use("/api/auth/login", require("./routes/auth/login"));
