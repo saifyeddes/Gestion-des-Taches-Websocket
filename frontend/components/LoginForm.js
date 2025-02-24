@@ -1,10 +1,12 @@
 import { useState } from "react";
 import axios from "../utils/api";
+import { useRouter } from "next/router"; // Importer useRouter
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const router = useRouter(); // Initialiser useRouter
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,6 +18,9 @@ export default function LoginForm() {
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       setMessage("Connexion réussie !");
+      
+      // Redirection vers le dashboard
+      router.push("/dashboard"); // Ajouter la redirection
     } catch (error) {
       setMessage(error.response?.data?.msg || "Erreur lors de la connexion");
     }
