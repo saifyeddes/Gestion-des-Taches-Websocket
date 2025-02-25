@@ -1,18 +1,25 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const SOCKET_SERVER_URL = 'http://localhost:5000'; // Remplacez par l'URL de votre serveur
+let socket;
 
 export const useSocket = () => {
-    const socketRef = useRef();
+  const [socketInstance, setSocketInstance] = useState(null);
 
-    useEffect(() => {
-        socketRef.current = io(SOCKET_SERVER_URL);
+  useEffect(() => {
+    // S'assurer que nous n'avons qu'une seule instance de socket
+    if (!socket) {
+      socket = io('http://localhost:5001'); // L'URL de votre serveur WebSocket
+      setSocketInstance(socket);
+    }
 
-        return () => {
-            socketRef.current.disconnect();
-        };
-    }, []);
+    // Nettoyer l'instance de socket lors du démontage du composant
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  }, []);
 
-    return socketRef.current;
+  return socketInstance;
 };

@@ -1,16 +1,17 @@
 const express = require("express");
-const {
-  getTasks,
-  addTask,
-  updateTask,
-  deleteTask,
-} = require("../../controllers/taskController");
-
+const { getTasks, addTask, updateTask, deleteTask } = require("../../controllers/taskController");
 const router = express.Router();
 
-router.get("/", getTasks); // Récupérer toutes les tâches
-router.post("/", addTask); // Ajouter une nouvelle tâche
-router.put("/:id", updateTask); // Modifier une tâche
-router.delete("/:id", deleteTask); // Supprimer une tâche
+// Route pour récupérer toutes les tâches
+router.get("/", getTasks);
+
+// Route pour ajouter une nouvelle tâche
+router.post("/", addTask);
+
+// Route pour mettre à jour une tâche
+router.put("/:id", updateTask);
+
+// Route pour supprimer une tâche
+router.delete("/:id", deleteTask);
 
 module.exports = router;

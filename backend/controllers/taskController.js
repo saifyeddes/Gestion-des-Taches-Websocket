@@ -1,5 +1,3 @@
-const Task = require("../models/Task");
-
 // Récupérer toutes les tâches
 exports.getTasks = async (req, res) => {
   try {
@@ -17,6 +15,9 @@ exports.addTask = async (req, res) => {
     const newTask = new Task({ title });
     await newTask.save();
     res.status(201).json(newTask);
+
+    // Émettre un événement WebSocket après avoir ajouté la tâche
+    io.emit('task:added', newTask);
   } catch (error) {
     res.status(500).json({ message: "Erreur serveur" });
   }
@@ -26,10 +27,11 @@ exports.addTask = async (req, res) => {
 exports.updateTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedTask = await Task.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
+    const updatedTask = await Task.findByIdAndUpdate(id, req.body, { new: true });
     res.json(updatedTask);
+
+    // Émettre un événement WebSocket après avoir mis à jour la tâche
+    io.emit('task:updated', updatedTask);
   } catch (error) {
     res.status(500).json({ message: "Erreur serveur" });
   }
@@ -41,6 +43,9 @@ exports.deleteTask = async (req, res) => {
     const { id } = req.params;
     await Task.findByIdAndDelete(id);
     res.json({ message: "Tâche supprimée" });
+
+    // Émettre un événement WebSocket après avoir supprimé la tâche
+    io.emit('task:deleted', id);
   } catch (error) {
     res.status(500).json({ message: "Erreur serveur" });
   }

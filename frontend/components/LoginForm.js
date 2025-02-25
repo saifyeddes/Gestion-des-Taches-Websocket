@@ -20,7 +20,7 @@ export default function LoginForm() {
       setMessage("Connexion réussie !");
       
       // Redirection vers le dashboard
-      router.push("/dashboard"); // Ajouter la redirection
+      router.push("/auth/dashboard"); // Ajouter la redirection
     } catch (error) {
       setMessage(error.response?.data?.msg || "Erreur lors de la connexion");
     }
