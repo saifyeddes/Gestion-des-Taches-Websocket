@@ -1,22 +1,14 @@
-// taskSocket.js
-module.exports = (io) => {
-  io.on("connection", (socket) => {
-    console.log("🟢 Un utilisateur s'est connecté au WebSocket");
+let io;
 
-    socket.on("task:add", (task) => {
-      io.emit("task:added", task);
-    });
+const setIoInstance = (instance) => {
+  io = instance;
+};
 
-    socket.on("task:update", (task) => {
-      io.emit("task:updated", task);
-    });
+const getIoInstance = () => {
+  return io;
+};
 
-    socket.on("task:delete", (taskId) => {
-      io.emit("task:deleted", taskId);
-    });
-
-    socket.on("disconnect", () => {
-      console.log("🔴 Un utilisateur s'est déconnecté");
-    });
-  });
+module.exports = {
+  setIoInstance,
+  getIoInstance,
 };
